@@ -11,35 +11,36 @@ var c = canvas.getContext('2d');
 
 
 
-function Circle(x,y,dx,dy,radius){
-    this.x = x;
-    this.y = y;
-    this.dx = dx;
-    this.dy = dy;
-    this.radius = radius;
-    this.draw = function(){
+class Circle {
+    constructor(x,y,dx,dy,radius){
+        this.x = x;
+        this.y = y;
+        this.dx = dx;
+        this.dy = dy;
+    }
+    draw(){
         c.beginPath();
-        c.arc(this.x,this.y,this.radius,0, Math.PI * 2, false);
+        c.arc(x,y,radius,0, Math.PI * 2, false);
         // c.strokeStyle = 'white';
         // c.stroke();
         c.fillStyle = '#b57edc';
         c.fill();
     }
-    this.update = function(){
-        if (this.x + this.radius > innerWidth || this.x - this.radius < 0){
-            this.dx = -this.dx;
+    update(){
+        if (x + radius > innerWidth || x - radius < 0){
+            dx = -dx;
         }
-        if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
-            this.dy = -this.dy;
+        if (y + radius > innerHeight || y - radius < 0) {
+            dy = -dy;
         }
-        this.x += this.dx;
-        this.y += this.dy;
+        x += dx;
+        y += dy;
         this.draw();
     }
 }
 
 
-var circle = new Circle (200,200,3,3,30);
+var circle = new Circle(200,200,3,3,30);
 
 var circleArr = [];
 
