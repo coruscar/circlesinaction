@@ -19,21 +19,21 @@ class Circle {
     }
     draw(){
         c.beginPath();
-        c.arc(x,y,radius,0, Math.PI * 2, false);
-        // c.strokeStyle = 'white';
+        c.arc(this.x,this.y,this.radius,0, Math.PI * 2, false);
+        // c.strokeStyle = 'black';
         // c.stroke();
         c.fillStyle = '#b57edc';
         c.fill();
     }
     update(){
-        if (x + radius > innerWidth || x - radius < 0){
-            dx = -dx;
+        if (this.x + this.radius > innerWidth || this.x - this.radius < 0){
+            this.dx = -this.dx;
         }
-        if (y + radius > innerHeight || y - radius < 0) {
-            dy = -dy;
+        if (this.y + this.radius > innerHeight || this.y - this.radius < 0) {
+            this.dy = -this.dy;
         }
-        x += dx;
-        y += dy;
+        this.x += this.dx;
+        this.y += this.dy;
     }
 }
 
@@ -60,7 +60,6 @@ function animate() {
     for(var i = 0; i < circleArr.length; i++){
         circleArr[i].update();
         circleArr[i].draw();
-
     }
 }
 
