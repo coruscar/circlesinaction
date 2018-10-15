@@ -8,6 +8,17 @@ var c = canvas.getContext('2d');
 
 // c.fillRect(100,100,100,100);
 // console.log(canvas)
+var mouse = {
+    x: undefined,
+    y: undefined
+}
+
+window.addEventListener('mousemove', 
+    function(event){
+    // console.log(event);
+    mouse.x = event.x;
+    mouse.y = event.y;
+})
 
 class Circle {
     constructor(x,y,dx,dy,radius){
@@ -34,6 +45,16 @@ class Circle {
         }
         this.x += this.dx;
         this.y += this.dy;
+
+        //mouse functionality
+        if (mouse.x - this.x < 50 && mouse.x - this.x > -50 && mouse.y - this.y < 50 && mouse.y - this.y > -50) {
+            if (this.radius < 40){
+                this.radius += 1; 
+
+            }
+        } else if (this.radius > radius){
+            this.radius -= 1;
+        }
     }
 }
 
