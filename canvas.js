@@ -1,3 +1,6 @@
+var CSS_COLOR_NAMES = ["AliceBlue","AntiqueWhite","Aqua","Aquamarine","Azure","Beige","Bisque","Black","BlanchedAlmond","Blue","BlueViolet","Brown","BurlyWood","CadetBlue","Chartreuse","Chocolate","Coral","CornflowerBlue","Cornsilk","Crimson","Cyan","DarkBlue","DarkCyan","DarkGoldenRod","DarkGray","DarkGrey","DarkGreen","DarkKhaki","DarkMagenta","DarkOliveGreen","Darkorange","DarkOrchid","DarkRed","DarkSalmon","DarkSeaGreen","DarkSlateBlue","DarkSlateGray","DarkSlateGrey","DarkTurquoise","DarkViolet","DeepPink","DeepSkyBlue","DimGray","DimGrey","DodgerBlue","FireBrick","FloralWhite","ForestGreen","Fuchsia","Gainsboro","GhostWhite","Gold","GoldenRod","Gray","Grey","Green","GreenYellow","HoneyDew","HotPink","IndianRed","Indigo","Ivory","Khaki","Lavender","LavenderBlush","LawnGreen","LemonChiffon","LightBlue","LightCoral","LightCyan","LightGoldenRodYellow","LightGray","LightGrey","LightGreen","LightPink","LightSalmon","LightSeaGreen","LightSkyBlue","LightSlateGray","LightSlateGrey","LightSteelBlue","LightYellow","Lime","LimeGreen","Linen","Magenta","Maroon","MediumAquaMarine","MediumBlue","MediumOrchid","MediumPurple","MediumSeaGreen","MediumSlateBlue","MediumSpringGreen","MediumTurquoise","MediumVioletRed","MidnightBlue","MintCream","MistyRose","Moccasin","NavajoWhite","Navy","OldLace","Olive","OliveDrab","Orange","OrangeRed","Orchid","PaleGoldenRod","PaleGreen","PaleTurquoise","PaleVioletRed","PapayaWhip","PeachPuff","Peru","Pink","Plum","PowderBlue","Purple","Red","RosyBrown","RoyalBlue","SaddleBrown","Salmon","SandyBrown","SeaGreen","SeaShell","Sienna","Silver","SkyBlue","SlateBlue","SlateGray","SlateGrey","Snow","SpringGreen","SteelBlue","Tan","Teal","Thistle","Tomato","Turquoise","Violet","Wheat","White","WhiteSmoke","Yellow","YellowGreen"];
+
+
 var canvas = document.querySelector('canvas');
 
 canvas.width = window.innerWidth;
@@ -8,6 +11,7 @@ canvas.height = window.innerHeight;
 
 
 var c = canvas.getContext('2d');
+var colorInc = 0;
 
 // c.fillRect(100,100,100,100);
 // console.log(canvas)
@@ -27,12 +31,13 @@ window.addEventListener('mousemove',
 
 
 class Circle {
-    constructor(x,y,dx,dy,radius){
+    constructor(x,y,dx,dy,radius,colorInc){
         this.x = x;
         this.y = y;
         this.dx = dx;
         this.dy = dy;
         this.radius = radius;
+        this.colorInc = colorInc;
         // this.l10 = [3,3,3,3,3,3,3,3,3,3];
         // var ovel = [this.dx,this.dy]
     }
@@ -42,10 +47,13 @@ class Circle {
         c.arc(this.x,this.y,this.radius,0, Math.PI * 2, false);
         // c.strokeStyle = 'black';
         // c.stroke();
-        c.fillStyle = '#b57edc';
+        c.fillStyle = CSS_COLOR_NAMES[this.colorInc];
         c.fill();
     }
 }
+
+
+
 class Rectangle {
     constructor(x,y,w,h){
         this.x = x;
@@ -83,7 +91,13 @@ for (var i = 0; i < 10; i++){
     var y = Math.random() * (innerHeight - radius * 2) + radius;
     var dx = (Math.random() - 0.5 ) * 8;
     var dy = (Math.random() - 0.5 ) * 8;
-    circleArr.push(new Circle(x,y,dx,dy,radius));
+    colorInc++;
+    var rcolor = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+    if (colorInc > CSS_COLOR_NAMES.length){
+        colorInc = 0;
+    }
+    circleArr.push(new Circle(x,y,dx,dy,radius,rcolor));
+
     //init array of previous values
 }
 
