@@ -163,7 +163,7 @@ function update(){
         if ((getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius) && currentlyHeld[i] == 0){
             circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
             currentlyHeld[i] = 1;
-        } else if (currentlyHeld[i] = 1){
+        } else if (currentlyHeld[i] == 1){
             currentlyHeld[i] = 0;
         }
         console.log("currentlyHeld[" + i + "]" + "= " + currentlyHeld[i]);
