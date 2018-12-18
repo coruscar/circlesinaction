@@ -85,7 +85,7 @@ rectArr.push(rectangle = new Rectangle(0,canvas.height-50,canvas.width,50));
 // rectArr.push(rectangle = new Rectangle(0,canvas.height,canvas.width,50));
 
 
-for (var i = 0; i < 1; i++){
+for (var i = 0; i < 10; i++){
     var radius = 30;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y = Math.random() * (innerHeight - radius * 2) + radius;
@@ -131,8 +131,8 @@ function getDistance(x1, y1, x2, y2){
 }
 
 
-var cantChangeColor = new Array(circleArr.length).fill(0);
-// console.log(cantChangeColor);
+var isMouseOnCircle = new Array(circleArr.length).fill(0);
+// console.log(isMouseOnCircle);
 
 function update(){
 
@@ -159,18 +159,15 @@ function update(){
             circleArr[i].dy = -circleArr[i].dy;
         }
         
-        if (cantChangeColor[i] == 0){
+        if (isMouseOnCircle[i] == 0){
             if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius){
                 circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
-                cantChangeColor[i] = 1;
+                isMouseOnCircle[i] = 1;
             }
-            console.log("cantChangeColor[" + i + "]" + "= " + cantChangeColor[i]);
+            console.log("isMouseOnCircle[" + i + "]" + "= " + isMouseOnCircle[i]);
         }
-        if (cantChangeColor[i] != 0){
-            cantChangeColor[i]++;
-        }
-        if(cantChangeColor[i] > 10){
-            cantChangeColor[i] = 0;
+        if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) > circleArr[i].radius + mouseCircle.radius){
+            isMouseOnCircle[i] = 0;
         }
 
         // console.log("jankTickImplementation = " + jankTickImplementation);
