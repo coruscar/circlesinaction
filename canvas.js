@@ -75,14 +75,14 @@ class Rectangle {
     }
 }
 
-var circle = new Circle(200,200,3,3,30);
 var circleArr = [];
+var mouseCircle = new Circle(undefined,undefined,0,0,30);
+
 
 //first rectangle used as ground for testing
 var rectArr = [];
 rectArr.push(rectangle = new Rectangle(0,canvas.height-50,canvas.width,50));
 // rectArr.push(rectangle = new Rectangle(0,canvas.height,canvas.width,50));
-
 
 
 for (var i = 0; i < 10; i++){
@@ -117,10 +117,33 @@ function hitdetection(i){
     }
 }
 
-console.log(circleArr[0].x)
+console.log(circleArr[0].x);
+
+//failed collision detection
+// var reversedThisCycle = false;
+
+
+function getDistance(x1, y1, x2, y2){
+    //TODO let
+    var xDistance = x2 - x1;
+    var yDistance = y2 - y1;
+    return Math.sqrt(Math.pow(xDistance,2)+Math.pow(yDistance,2));
+}
+
+
+
 
 function update(){
+
+    mouseCircle.y = mouse.y;
+    mouseCircle.x = mouse.x;
+
     for (var i = 0; i < circleArr.length; i++){
+        
+        //failed collision detection        
+        // if (i == 0){
+        //     reversedThisCycle = false;
+        // }
 
         // circleArr[i].l10.push(circleArr[i].dx);
         // circleArr[i].l10.push(circleArr[i].dy);
@@ -134,6 +157,14 @@ function update(){
         if (circleArr[i].y + circleArr[i].radius > innerHeight || circleArr[i].y - circleArr[i].radius < 0) {
             circleArr[i].dy = -circleArr[i].dy;
         }
+        
+
+        if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius){
+            circleArr[i].colorInc = 2;
+        } else if (circleArr[i].colorInc == 2){
+            circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+        }
+        
         circleArr[i].x += circleArr[i].dx;
         circleArr[i].y += circleArr[i].dy;
         // circleArr[i].l10x.push(circleArr[i].x);
@@ -142,12 +173,13 @@ function update(){
         //mouse functionality
         if (mouse.x - circleArr[i].x < 50 && mouse.x - circleArr[i].x > -50 && mouse.y - circleArr[i].y < 50 && mouse.y - circleArr[i].y > -50) {
             if (circleArr[i].radius < 40){
-                circleArr[i].radius += 1; 
-
+                circleArr[i].radius += 1;
             }
         } else if (circleArr[i].radius > radius){
             circleArr[i].radius -= 1;
         }
+
+        
     }
 }
 
@@ -155,6 +187,8 @@ function animate() {
     requestAnimationFrame(animate);
     c.clearRect(0,0,innerWidth,innerHeight);
     update();
+    mouseCircle.draw();
+    // console.log(getDistance(circleArr[0].x,circleArr[0].y,mouseCircle.x,mouseCircle.y));
     for(var i = 0; i < circleArr.length; i++){
         circleArr[i].draw();
         // hitdetection(i);
