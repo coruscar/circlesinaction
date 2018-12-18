@@ -85,7 +85,7 @@ rectArr.push(rectangle = new Rectangle(0,canvas.height-50,canvas.width,50));
 // rectArr.push(rectangle = new Rectangle(0,canvas.height,canvas.width,50));
 
 
-for (var i = 0; i < 10; i++){
+for (var i = 0; i < 1; i++){
     var radius = 30;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y = Math.random() * (innerHeight - radius * 2) + radius;
@@ -160,12 +160,14 @@ function update(){
         }
         
 
-        if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius && currentlyHeld[i] == 0){
+        if ((getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius) && currentlyHeld[i] == i){
             circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
             currentlyHeld[i] = 1;
-        } else {
+        } else if (jankTickImplementation){
             currentlyHeld[i] = 0;
         }
+        console.log("currentlyHeld[" + i + "]" + "= " + currentlyHeld[i]);
+
         
         circleArr[i].x += circleArr[i].dx;
         circleArr[i].y += circleArr[i].dy;
@@ -184,8 +186,9 @@ function update(){
         
     }
 }
-
+var jankTickImplementation = 0;
 function animate() {
+    jankTickImplementation++;
     requestAnimationFrame(animate);
     c.clearRect(0,0,innerWidth,innerHeight);
     update();
