@@ -163,12 +163,15 @@ function update(){
         if ((getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius) && currentlyHeld[i] == i){
             circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
             currentlyHeld[i] = 1;
-        } else if (jankTickImplementation){
-            currentlyHeld[i] = 0;
         }
         console.log("currentlyHeld[" + i + "]" + "= " + currentlyHeld[i]);
-
-        
+        if (currentlyHeld[i] == 2){
+            currentlyHeld[i] = 0;
+        } else if (currentlyHeld[i] == 1){
+            currentlyHeld[i] = 2;
+        }
+        console.log("currentlyHeld[" + i + "]" + "= " + currentlyHeld[i]);
+        // console.log("jankTickImplementation = " + jankTickImplementation);
         circleArr[i].x += circleArr[i].dx;
         circleArr[i].y += circleArr[i].dy;
         // circleArr[i].l10x.push(circleArr[i].x);
