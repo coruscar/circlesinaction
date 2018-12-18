@@ -131,7 +131,8 @@ function getDistance(x1, y1, x2, y2){
 }
 
 
-
+var currentlyHeld = new Array(circleArr.length).fill(0);
+// console.log(currentlyHeld);
 
 function update(){
 
@@ -159,10 +160,11 @@ function update(){
         }
         
 
-        if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius){
-            circleArr[i].colorInc = 2;
-        } else if (circleArr[i].colorInc == 2){
-            circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+        if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius && currentlyHeld[i] == 0){
+            circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+            currentlyHeld[i] = 1;
+        } else {
+            currentlyHeld[i] = 0;
         }
         
         circleArr[i].x += circleArr[i].dx;
