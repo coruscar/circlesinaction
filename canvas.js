@@ -131,8 +131,8 @@ function getDistance(x1, y1, x2, y2){
 }
 
 
-var currentlyHeld = new Array(circleArr.length).fill(0);
-// console.log(currentlyHeld);
+var cantChangeColor = new Array(circleArr.length).fill(0);
+// console.log(cantChangeColor);
 
 function update(){
 
@@ -159,14 +159,20 @@ function update(){
             circleArr[i].dy = -circleArr[i].dy;
         }
         
-
-        if ((getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius) && currentlyHeld[i] == 0){
-            circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
-            currentlyHeld[i] = 1;
-        } else if (currentlyHeld[i] == 1){
-            currentlyHeld[i] = 0;
+        if (cantChangeColor[i] == 0){
+            if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius){
+                circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+                cantChangeColor[i] = 1;
+            }
+            console.log("cantChangeColor[" + i + "]" + "= " + cantChangeColor[i]);
         }
-        console.log("currentlyHeld[" + i + "]" + "= " + currentlyHeld[i]);
+        if (cantChangeColor[i] != 0){
+            cantChangeColor[i]++;
+        }
+        if(cantChangeColor[i] > 10){
+            cantChangeColor[i] = 0;
+        }
+
         // console.log("jankTickImplementation = " + jankTickImplementation);
         circleArr[i].x += circleArr[i].dx;
         circleArr[i].y += circleArr[i].dy;
