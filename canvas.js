@@ -164,7 +164,7 @@ function update(){
                 circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
                 isMouseOnCircle[i] = 1;
             }
-            console.log("isMouseOnCircle[" + i + "]" + "= " + isMouseOnCircle[i]);
+            // console.log("isMouseOnCircle[" + i + "]" + "= " + isMouseOnCircle[i]);
         }
         if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) > circleArr[i].radius + mouseCircle.radius){
             isMouseOnCircle[i] = 0;
