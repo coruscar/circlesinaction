@@ -85,7 +85,7 @@ rectArr.push(rectangle = new Rectangle(0,canvas.height-50,canvas.width,50));
 // rectArr.push(rectangle = new Rectangle(0,canvas.height,canvas.width,50));
 
 
-for (var i = 0; i < 10; i++){
+for (var i = 0; i < 12; i++){
     var radius = 30;
     var x = Math.random() * (innerWidth - radius * 2) + radius;
     var y = Math.random() * (innerHeight - radius * 2) + radius;
@@ -161,7 +161,7 @@ function update(){
         
         if (isMouseOnCircle[i] == 0){
             if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) < circleArr[i].radius + mouseCircle.radius){
-                circleArr[i].colorInc = circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+                circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
                 isMouseOnCircle[i] = 1;
             }
             // console.log("isMouseOnCircle[" + i + "]" + "= " + isMouseOnCircle[i]);
@@ -169,6 +169,22 @@ function update(){
         if (getDistance(circleArr[i].x,circleArr[i].y,mouseCircle.x,mouseCircle.y) > circleArr[i].radius + mouseCircle.radius){
             isMouseOnCircle[i] = 0;
         }
+
+        // if (isCircleTouching[i] == 0){
+            for (var j = 0; j < circleArr.length; j++){
+                var tDi = getDistance(circleArr[i].x,circleArr[i].y,circleArr[j].x,circleArr[j].y);
+                if( tDi < (circleArr[i].radius + circleArr[j].radius) && tDi != 0){
+                    console.log("circle " + i + " and circle " + j + " are touching at a distance of " + getDistance(circleArr[i].x,circleArr[i].y,circleArr[j].x,circleArr[j].y));
+                    circleArr[i].x += circleArr[i].dx;
+                    circleArr[i].y += circleArr[i].dy;
+                    circleArr[j].x += circleArr[j].dx;
+                    circleArr[j].y += circleArr[j].dy;
+                    circleArr[i].colorInc = Math.floor(Math.random()*CSS_COLOR_NAMES.length);
+                }
+            }
+        // }
+
+
 
         // console.log("jankTickImplementation = " + jankTickImplementation);
         circleArr[i].x += circleArr[i].dx;
